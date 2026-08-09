@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#091b2a" />
+    <meta
+      name="description"
+      content="EpiLENS is a patient-relative framework for epileptogenic zone localization from multi-center intracranial EEG."
+    />
+    <meta property="og:title" content="EpiLENS" />
+    <meta
+      property="og:description"
+      content="Patient-relative epileptogenic zone localization from multi-center intracranial EEG."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gifoe.github.io/EpiLENS/" />
+    <meta
+      property="og:image"
+      content="https://gifoe.github.io/EpiLENS/assets/epilens-overview.png"
+    />
+    <title>EpiLENS | Patient-Relative EZ Localization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav-wrap">
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="EpiLENS home">
+          <span class="brand-mark">E</span>
+          <span>EpiLENS</span>
+        </a>
+        <div class="nav-links">
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero container">
+        <div class="eyebrow">Multi-center intracranial EEG</div>
+        <h1>Patient-relative evidence for epileptogenic zone localization.</h1>
+        <p class="lede">
+          EpiLENS combines seizure-consistent patient-relative deviations with
+          complementary boundary-aware ranking, improving balanced localization
+          across heterogeneous patients and clinical centers.
+        </p>
+        <p class="authors">
+          Yuanchu Gong · Zibo Yan · Yibo Lyu · Chen Chen · Sixian Chan · Yalin Wang
+        </p>
+        <p class="affiliations">
+          Lanzhou University · Fudan University · Zhejiang University of Technology
+        </p>
+        <div class="actions" aria-label="Paper resources">
+          <a class="button primary" href="https://arxiv.org/abs/2608.01076">Read the paper</a>
+          <a class="button" href="https://arxiv.org/pdf/2608.01076">PDF</a>
+          <a class="button" href="https://github.com/Gifoe/EpiLENS">Code</a>
+        </div>
+      </section>
+
+      <section class="signal-band" aria-label="Study summary">
+        <div class="container stats-grid">
+          <div><strong>80</strong><span>patients</span></div>
+          <div><strong>4</strong><span>clinical centers</span></div>
+          <div><strong>256</strong><span>seizures</span></div>
+          <div><strong>7,635</strong><span>implanted channels</span></div>
+        </div>
+      </section>
+
+      <section id="method" class="section container">
+        <div class="section-heading">
+          <span>Method</span>
+          <h2>Conservative dual evidence, organized around the patient.</h2>
+          <p>
+            EpiLENS constructs four self-referenced feature views and processes
+            them through two independent branches. CDEL keeps PRQ-Net primary and
+            adds a restrained contribution from BCR-Net at inference.
+          </p>
+        </div>
+
+        <figure class="method-figure">
+          <img
+            src="assets/epilens-overview.png"
+            alt="EpiLENS pipeline showing patient-relative feature construction, PRQ-Net, BCR-Net, and conservative fusion"
+          />
+          <figcaption>
+            EpiLENS overview: multi-seizure patient-relative evidence, complementary
+            branches, and the locked CDEL fusion.
+          </figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <article>
+            <span class="step">01</span>
+            <h3>Patient-relative views</h3>
+            <p>
+              Absolute, reference-difference, standardized-deviation, and
+              log-relative features expose within-patient change while preserving
+              the original electrophysiology.
+            </p>
+          </article>
+          <article>
+            <span class="step">02</span>
+            <h3>Asymmetric branches</h3>
+            <p>
+              PRQ-Net produces stable patient-relative probabilities. BCR-Net
+              focuses supervision on ambiguous boundaries and annotated-set coverage.
+            </p>
+          </article>
+          <article>
+            <span class="step">03</span>
+            <h3>Locked conservative fusion</h3>
+            <p>
+              CDEL uses 0.8 PRQ-Net + 0.2 BCR-Net. A single validation-selected
+              fold threshold is applied unchanged to outer-test patients.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="section results-section">
+        <div class="container">
+          <div class="section-heading light">
+            <span>Results</span>
+            <h2>Balanced localization without inflating the predicted EZ set.</h2>
+            <p>
+              Patient-wise metrics on fixed five-fold splits, reported over three
+              seeds. Macro-F1 is the primary endpoint.
+            </p>
+          </div>
+          <div class="result-cards">
+            <article class="result-card featured">
+              <span>Macro-F1</span>
+              <strong>0.6371</strong>
+              <small>± 0.0072</small>
+              <p>+0.0306 over the strongest baseline</p>
+            </article>
+            <article class="result-card">
+              <span>EZ-F1</span>
+              <strong>0.4485</strong>
+              <small>± 0.0118</small>
+              <p>Improved recovery of the minority EZ class</p>
+            </article>
+            <article class="result-card">
+              <span>AUROC</span>
+              <strong>0.7468</strong>
+              <small>± 0.0004</small>
+              <p>Strong continuous discrimination across channels</p>
+            </article>
+            <article class="result-card">
+              <span>Worst-center Macro-F1</span>
+              <strong>0.5773</strong>
+              <small>LOCO</small>
+              <p>Best worst-center result in leave-one-center-out evaluation</p>
+            </article>
+          </div>
+          <p class="results-note">
+            The strongest retained baseline is logistic regression with patient-wise
+            z-score normalization (Macro-F1 0.6065). Clinical annotations are
+            surgical-target surrogates, not definitive biological ground truth.
+          </p>
+        </div>
+      </section>
+
+      <section class="section container evidence">
+        <div class="section-heading">
+          <span>Evidence</span>
+          <h2>What the analyses support.</h2>
+        </div>
+        <div class="evidence-grid">
+          <div>
+            <h3>Complementary ranking</h3>
+            <p>
+              BCR-Net improves ordering of difficult EZ candidates; CDEL retains
+              most of that gain while producing the strongest thresholded localization.
+            </p>
+          </div>
+          <div>
+            <h3>Cross-seizure consistency</h3>
+            <p>
+              Performance rises as repeated seizures are added under frozen
+              checkpoints, fusion weights, and validation thresholds.
+            </p>
+          </div>
+          <div>
+            <h3>Unseen-center transfer</h3>
+            <p>
+              Leave-one-center-out experiments retain the strongest center-average
+              and worst-center Macro-F1 without target-center adaptation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="citation" class="section citation-section">
+        <div class="container citation-layout">
+          <div class="section-heading">
+            <span>Citation</span>
+            <h2>Use EpiLENS in your research.</h2>
+            <p>
+              The code implements the patient-relative models, locked CDEL fusion,
+              strongest baseline, and the reported analysis workflows. Clinical data
+              are not distributed.
+            </p>
+          </div>
+          <div class="bibtex-wrap">
+            <button id="copy-bibtex" type="button" aria-label="Copy BibTeX citation">
+              Copy BibTeX
+            </button>
+            <pre id="bibtex"><code>@article{gong2026epilens,
+  title   = {EpiLENS: Patient-Relative Epileptogenic Zone Localization from Multi-Center Intracranial EEG},
+  author  = {Gong, Yuanchu and Yan, Zibo and Lyu, Yibo and Chen, Chen and Chan, Sixian and Wang, Yalin},
+  journal = {arXiv preprint arXiv:2608.01076},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2608.01076}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>EpiLENS · 2026</span>
+        <div>
+          <a href="https://arxiv.org/abs/2608.01076">Paper</a>
+          <a href="https://github.com/Gifoe/EpiLENS">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

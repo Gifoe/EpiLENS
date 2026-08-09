@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use EpiLENS, please cite the paper below."
+title: "EpiLENS"
+type: software
+version: 0.1.0
+date-released: 2026-08-02
+url: "https://github.com/Gifoe/EpiLENS"
+authors:
+  - family-names: Gong
+    given-names: Yuanchu
+  - family-names: Yan
+    given-names: Zibo
+  - family-names: Lyu
+    given-names: Yibo
+  - family-names: Chen
+    given-names: Chen
+  - family-names: Chan
+    given-names: Sixian
+  - family-names: Wang
+    given-names: Yalin
+preferred-citation:
+  type: article
+  title: "EpiLENS: Patient-Relative Epileptogenic Zone Localization from Multi-Center Intracranial EEG"
+  authors:
+    - family-names: Gong
+      given-names: Yuanchu
+    - family-names: Yan
+      given-names: Zibo
+    - family-names: Lyu
+      given-names: Yibo
+    - family-names: Chen
+      given-names: Chen
+    - family-names: Chan
+      given-names: Sixian
+    - family-names: Wang
+      given-names: Yalin
+  year: 2026
+  doi: "10.48550/arXiv.2608.01076"
+  url: "https://arxiv.org/abs/2608.01076"

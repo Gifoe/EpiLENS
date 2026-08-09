@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epilens-ieeg"
+version = "0.1.0"
+description = "Patient-relative epileptogenic zone localization from multi-center intracranial EEG"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  {name = "Yuanchu Gong"},
+  {name = "Zibo Yan"},
+  {name = "Yibo Lyu"},
+  {name = "Chen Chen"},
+  {name = "Sixian Chan"},
+  {name = "Yalin Wang"},
+]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "scikit-learn>=1.3",
+  "torch>=2.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2608.01076"
+Homepage = "https://gifoe.github.io/EpiLENS/"
+Repository = "https://github.com/Gifoe/EpiLENS"
+
+[tool.setuptools.packages.find]
+include = ["epilens*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
