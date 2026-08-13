@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://gifoe.github.io/EpiLENS/" />
     <meta
       property="og:image"
-      content="https://gifoe.github.io/EpiLENS/assets/epilens-overview.png"
+      content="https://gifoe.github.io/EpiLENS/assets/aoa.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <title>EpiLENS: Patient-Relative Epileptogenic Zone Localization</title>
@@ -29,21 +29,16 @@
   </head>
   <body>
     <main>
-      <section class="hero">
+      <header class="hero">
         <div class="container hero-content">
-          <div class="paper-logo" aria-label="EpiLENS">
-            <span class="logo-orbit"><span></span></span>
-            <span class="logo-word">EpiLENS</span>
-          </div>
-
-          <h1 class="publication-title">
-            <span class="small-caps">EpiLENS</span>: Patient-Relative Epileptogenic
-            Zone Localization from Multi-Center Intracranial EEG
+          <h1>
+            <span>EpiLENS</span>: Patient-Relative Epileptogenic Zone
+            Localization from Multi-Center Intracranial EEG
           </h1>
 
-          <div class="venue-badge">arXiv 2026</div>
+          <div class="venue">arXiv 2026</div>
 
-          <div class="publication-authors">
+          <div class="authors">
             <span>Yuanchu Gong<sup>1</sup></span>
             <span>Zibo Yan<sup>1</sup></span>
             <span>Yibo Lyu<sup>1</sup></span>
@@ -52,252 +47,66 @@
             <span>Yalin Wang<sup>1,*</sup></span>
           </div>
 
-          <div class="publication-affiliations">
+          <div class="affiliations">
             <span><sup>1</sup>Lanzhou University</span>
             <span><sup>2</sup>Fudan University</span>
             <span><sup>3</sup>Zhejiang University of Technology</span>
           </div>
           <p class="author-note"><sup>*</sup> Corresponding authors</p>
 
-          <div class="publication-links" aria-label="Publication links">
-            <a class="link-button" href="https://arxiv.org/abs/2608.01076">
-              <span class="button-icon">▤</span>
-              <span>Paper</span>
-            </a>
-            <a class="link-button" href="https://arxiv.org/pdf/2608.01076">
-              <span class="button-icon">↓</span>
-              <span>PDF</span>
-            </a>
-            <a class="link-button" href="https://github.com/Gifoe/EpiLENS">
-              <span class="button-icon">⌘</span>
-              <span>Code</span>
-            </a>
-          </div>
+          <nav class="publication-links" aria-label="Publication links">
+            <a href="https://arxiv.org/abs/2608.01076">Paper</a>
+            <a href="https://arxiv.org/pdf/2608.01076">PDF</a>
+            <a href="https://github.com/Gifoe/EpiLENS">Code</a>
+          </nav>
         </div>
-      </section>
+      </header>
 
       <section class="section">
         <div class="container content">
-          <h2>Overview</h2>
-          <p>
-            Drug-resistant epilepsy remains a major clinical challenge because
-            successful surgery depends on accurate localization of the epileptogenic
-            zone (EZ). Existing intracranial EEG methods often learn global
-            channel-wise decision rules that obscure patient-specific abnormalities
-            and become unstable under severe class imbalance and heterogeneous
-            clinical acquisition.
-          </p>
-          <p>
-            We present <strong>EpiLENS</strong>, a primary-guided asymmetric
-            dual-branch framework for patient-relative EZ localization. Its
-            Conservative Dual-Evidence Localization strategy combines stable
-            patient-relative probabilities from PRQ-Net with complementary
-            boundary-aware ranking evidence from BCR-Net.
-          </p>
-          <figure class="figure-block teaser-figure">
-            <img
-              src="assets/clinical-motivation.png"
-              alt="Clinical motivation for accurate epileptogenic zone localization and surgical planning"
-            />
-            <figcaption>
-              Accurate localization supports adequate surgical coverage while
-              reducing the risk of residual epileptogenic tissue.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section is-light">
-        <div class="container content">
-          <h2>The EpiLENS Framework</h2>
-          <p>
-            EpiLENS organizes multi-center SEEG and ECoG recordings by patient,
-            seizure, channel, and temporal window. Nine spectral and waveform
-            descriptors are converted into four self-referenced views: absolute
-            features, reference differences, standardized deviations, and
-            log-relative ratios.
+          <h2>Abstract</h2>
+          <p class="abstract">
+            EpiLENS is a patient-relative framework for localizing the
+            epileptogenic zone from multi-center intracranial EEG. It combines
+            stable patient-relative probabilities from PRQ-Net with complementary
+            boundary-aware ranking evidence from BCR-Net through Conservative
+            Dual-Evidence Localization (CDEL). Evaluated on 80 patients from four
+            centers, EpiLENS reaches a patient Macro-F1 of 0.6371 while maintaining
+            near-zero EZ-fraction bias.
           </p>
 
-          <figure class="figure-block framework-figure">
-            <img
-              src="assets/epilens-overview.png"
-              alt="EpiLENS framework with patient-relative feature construction, PRQ-Net, BCR-Net, and conservative fusion"
-            />
-            <figcaption>
-              EpiLENS builds patient-relative multi-seizure evidence and combines
-              independently trained PRQ-Net and BCR-Net branches at inference.
-            </figcaption>
-          </figure>
-
-          <div class="feature-columns">
-            <article>
-              <h3>Patient-relative evidence</h3>
-              <p>
-                Each channel is interpreted relative to its own pre-onset reference
-                and to the other implanted channels from the same patient.
-              </p>
-            </article>
-            <article>
-              <h3>Complementary branches</h3>
-              <p>
-                PRQ-Net emphasizes seizure-consistent deviations. BCR-Net emphasizes
-                ambiguous EZ/NEZ boundaries and recovery of the annotated EZ set.
-              </p>
-            </article>
-            <article>
-              <h3>Conservative fusion</h3>
-              <p>
-                CDEL retains PRQ-Net as the primary branch and uses the locked rule
-                0.8 PRQ-Net + 0.2 BCR-Net without patient-specific thresholds.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container content">
-          <h2>Experiments and Results</h2>
-          <p>
-            Evaluation uses fixed patient-wise five-fold outer splits across 80
-            postoperative seizure-free patients from four centers, comprising 256
-            seizures and 7,635 implanted channels. Metrics are computed for each
-            patient and then macro-averaged. Macro-F1 is the primary endpoint.
-          </p>
-
-          <div class="result-table-wrap">
-            <table class="result-table">
-              <thead>
-                <tr>
-                  <th>Method</th>
-                  <th>Macro-F1 ↑</th>
-                  <th>EZ-F1 ↑</th>
-                  <th>AUROC ↑</th>
-                  <th>EZ-frac. bias → 0</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Logistic + patient-wise z-score</td>
-                  <td>0.6065</td>
-                  <td>0.3988</td>
-                  <td>0.6835</td>
-                  <td>-0.0138</td>
-                </tr>
-                <tr>
-                  <td>PRQ-Net</td>
-                  <td>0.6282</td>
-                  <td>0.4299</td>
-                  <td>0.7416</td>
-                  <td>-0.0097</td>
-                </tr>
-                <tr>
-                  <td>BCR-Net</td>
-                  <td>0.6248</td>
-                  <td>0.4303</td>
-                  <td>0.7392</td>
-                  <td>+0.0040</td>
-                </tr>
-                <tr class="best-row">
-                  <td>CDEL</td>
-                  <td>0.6371</td>
-                  <td>0.4485</td>
-                  <td>0.7468</td>
-                  <td>+0.0034</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">
-            Mean across three seeds. CDEL improves Macro-F1 by 0.0306 over the
-            strongest retained baseline while maintaining near-zero EZ-fraction bias.
-          </p>
-
-          <h3 class="subsection-title">Fusion and statistical validation</h3>
-          <p>
-            The locked BCR-Net weight of 0.20 is stable across seeds. Within-patient
-            permutation testing rejects generic score smoothing as the explanation
-            for the fusion gain, and patient-level bootstrap intervals remain above
-            zero for all four reported endpoints.
-          </p>
-          <figure class="figure-block result-figure">
-            <img
-              src="assets/fusion-analysis.png"
-              alt="Fusion sensitivity, permutation test, and patient-level bootstrap results"
-            />
-            <figcaption>
-              Fusion sensitivity, within-patient permutation analysis, and paired
-              patient-level bootstrap differences from PRQ-Net.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section is-light">
-        <div class="container content">
-          <h2>Patient-Specific Evidence</h2>
-          <p>
-            CDEL's improvement concentrates on difficult channels near the PRQ-Net
-            decision boundary. Performance also rises as additional seizures are
-            incorporated under frozen checkpoints, fusion weights, and validation
-            thresholds, supporting the use of repeated within-patient evidence.
-          </p>
-          <figure class="figure-block result-figure">
-            <img
-              src="assets/mechanism-analysis.png"
-              alt="Boundary-channel analysis and cross-seizure evidence results"
-            />
-            <figcaption>
-              EZ-F1 on the hardest patient-specific channel subsets and Macro-F1 as
-              one, two, or all available seizures are used at inference.
-            </figcaption>
-          </figure>
-
-          <div class="takeaways">
-            <div>
-              <strong>0.6371</strong>
-              <span>patient Macro-F1</span>
-            </div>
-            <div>
-              <strong>0.001</strong>
-              <span>permutation p-value</span>
-            </div>
-            <div>
-              <strong>0.6163</strong>
-              <span>LOCO center-mean Macro-F1</span>
-            </div>
-            <div>
-              <strong>0.5773</strong>
-              <span>worst-center Macro-F1</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container content">
-          <h2>Code and Reproducibility</h2>
-          <p>
-            The repository contains PRQ-Net, BCR-Net, the locked CDEL fusion,
-            component and sensitivity analyses, cross-seizure and leave-one-center-out
-            evaluation, and the strongest reported baseline: logistic regression with
-            label-free patient-wise z-score normalization.
-          </p>
-          <p>
-            Raw clinical recordings and confidential patient annotations are not
-            distributed. The code defines an anonymized patient-record contract and
-            validates fixed patient-wise partitions before training.
-          </p>
-          <div class="center-link">
-            <a class="link-button" href="https://github.com/Gifoe/EpiLENS">
-              <span class="button-icon">⌘</span>
-              <span>View repository</span>
+          <figure class="method-figure">
+            <a href="assets/aoa.pdf" aria-label="Open the EpiLENS framework figure as PDF">
+              <img
+                src="assets/aoa.png"
+                alt="Overview of EpiLENS data preprocessing, PRQ-Net, BCR-Net, and conservative dual-evidence fusion"
+              />
             </a>
-          </div>
+            <figcaption>
+              EpiLENS overview. Click the figure to open the original PDF.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      <section class="section is-light" id="citation">
+      <section class="section results">
+        <div class="container content">
+          <h2>Results</h2>
+          <div class="metrics" aria-label="Key results">
+            <div><strong>0.6371</strong><span>Macro-F1</span></div>
+            <div><strong>0.4485</strong><span>EZ-F1</span></div>
+            <div><strong>0.7468</strong><span>AUROC</span></div>
+            <div><strong>+0.0034</strong><span>EZ-fraction bias</span></div>
+          </div>
+          <p class="result-note">
+            Patient-wise five-fold evaluation across 256 seizures and 7,635
+            implanted channels. The strongest retained baseline is logistic
+            regression with patient-wise z-score normalization (Macro-F1 0.6065).
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="citation">
         <div class="container content">
           <h2>Citation</h2>
           <div class="bibtex-wrap">
@@ -314,13 +123,11 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container">
-        <p>
-          EpiLENS project page · <a href="https://arxiv.org/abs/2608.01076">Paper</a>
-          · <a href="https://github.com/Gifoe/EpiLENS">Code</a>
-        </p>
-      </div>
+    <footer>
+      <p>
+        EpiLENS &middot; <a href="https://arxiv.org/abs/2608.01076">Paper</a>
+        &middot; <a href="https://github.com/Gifoe/EpiLENS">Code</a>
+      </p>
     </footer>
 
     <script src="script.js"></script>
