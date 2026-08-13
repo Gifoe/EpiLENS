@@ -134,6 +134,47 @@
         </div>
       </section>
 
+      <section class="section study-section" id="study">
+        <div class="container content">
+          <h2>Study design</h2>
+          <p class="section-intro">
+            The evaluation combines two public and two private localization
+            cohorts. All methods use the same retained intervals, bad-channel
+            exclusions, patient labels, and fixed patient-wise partitions.
+          </p>
+
+          <div class="cohort-layout">
+            <div class="cohort-table-wrap">
+              <table class="cohort-table">
+                <thead>
+                  <tr>
+                    <th>Cohort</th>
+                    <th>Patients</th>
+                    <th>Seizures</th>
+                    <th>Channels</th>
+                    <th>EZ / NEZ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>HUP</td><td>36</td><td>117</td><td>3,667</td><td>16.8% / 83.2%</td></tr>
+                  <tr><td>Multi-site</td><td>15</td><td>45</td><td>925</td><td>17.7% / 82.3%</td></tr>
+                  <tr><td>LZU</td><td>21</td><td>72</td><td>2,141</td><td>38.2% / 61.8%</td></tr>
+                  <tr><td>Fudan</td><td>8</td><td>22</td><td>902</td><td>16.2% / 83.8%</td></tr>
+                  <tr class="total-row"><td>Total</td><td>80</td><td>256</td><td>7,635</td><td>22.8% / 77.2%</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="protocol-list">
+              <article><strong>Five outer folds</strong><span>Patients, never channels, define the split.</span></article>
+              <article><strong>Three seeds</strong><span>42, 52, and 62; results report mean &plusmn; s.d.</span></article>
+              <article><strong>Validation-only selection</strong><span>One fold-level threshold is frozen for outer-test patients.</span></article>
+              <article><strong>Patient-equal metrics</strong><span>Metrics are computed per patient, then macro-averaged.</span></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section results" id="results">
         <div class="container content">
           <h2>Evaluation and results</h2>
@@ -149,49 +190,131 @@
             <div><strong>0.7468</strong><span>AUROC</span></div>
             <div><strong>+0.0034</strong><span>EZ-fraction bias</span></div>
           </div>
-          <div class="result-table-wrap">
+          <div class="result-table-wrap full-table">
             <table class="result-table">
               <thead>
                 <tr>
                   <th>Method</th>
+                  <th>Input</th>
                   <th>Macro-F1</th>
                   <th>EZ-F1</th>
+                  <th>NEZ-F1</th>
+                  <th>Accuracy</th>
                   <th>AUROC</th>
                   <th>EZ-frac. bias</th>
                 </tr>
               </thead>
               <tbody>
+                <tr class="group-row"><th colspan="8">Conventional feature baselines</th></tr>
+                <tr>
+                  <td>Logistic Regression</td><td>Feature</td>
+                  <td>0.4910 &plusmn; 0.0000</td><td>0.2740 &plusmn; 0.0000</td>
+                  <td>0.7080 &plusmn; 0.0000</td><td>0.6690 &plusmn; 0.0000</td>
+                  <td>0.5930 &plusmn; 0.0000</td><td>+0.0713</td>
+                </tr>
+                <tr>
+                  <td>RBF-SVM</td><td>Feature</td>
+                  <td>0.5020 &plusmn; 0.0026</td><td>0.2830 &plusmn; 0.0034</td>
+                  <td>0.7210 &plusmn; 0.0025</td><td>0.6800 &plusmn; 0.0029</td>
+                  <td>0.6080 &plusmn; 0.0003</td><td>+0.0557</td>
+                </tr>
+                <tr>
+                  <td>Random Forest</td><td>Feature</td>
+                  <td>0.4820 &plusmn; 0.0128</td><td>0.3000 &plusmn; 0.0166</td>
+                  <td>0.6630 &plusmn; 0.0313</td><td>0.6360 &plusmn; 0.0164</td>
+                  <td>0.5880 &plusmn; 0.0023</td><td>+0.1203</td>
+                </tr>
+                <tr>
+                  <td>LightGBM</td><td>Feature</td>
+                  <td>0.4890 &plusmn; 0.0000</td><td>0.2640 &plusmn; 0.0000</td>
+                  <td>0.7130 &plusmn; 0.0000</td><td>0.6670 &plusmn; 0.0000</td>
+                  <td>0.5940 &plusmn; 0.0000</td><td>+0.0420</td>
+                </tr>
+
+                <tr class="group-row"><th colspan="8">Neural and patient-relative controls</th></tr>
+                <tr>
+                  <td>DeepSets + BCE <span class="venue-tag">NeurIPS '17</span></td><td>Feature</td>
+                  <td>0.4862 &plusmn; 0.0171</td><td>0.3060 &plusmn; 0.0073</td>
+                  <td>0.6664 &plusmn; 0.0413</td><td>0.6522 &plusmn; 0.0327</td>
+                  <td>0.6300 &plusmn; 0.0138</td><td>+0.0960</td>
+                </tr>
+                <tr>
+                  <td>MLP + patient-wise rank <span class="venue-tag">Control</span></td><td>Feature</td>
+                  <td>0.5753 &plusmn; 0.0072</td><td>0.3446 &plusmn; 0.0011</td>
+                  <td>0.8060 &plusmn; 0.0133</td><td>0.7136 &plusmn; 0.0157</td>
+                  <td>0.6380 &plusmn; 0.0079</td><td>-0.0298</td>
+                </tr>
                 <tr>
                   <td>Logistic + patient-wise z-score</td>
-                  <td>0.6065</td>
-                  <td>0.3988</td>
-                  <td>0.6835</td>
-                  <td>-0.0138</td>
+                  <td>Feature</td>
+                  <td>0.6065 &plusmn; 0.0000</td><td>0.3988 &plusmn; 0.0000</td>
+                  <td>0.8142 &plusmn; 0.0000</td><td>0.7356 &plusmn; 0.0000</td>
+                  <td>0.6835 &plusmn; 0.0000</td><td>-0.0138</td>
                 </tr>
                 <tr>
-                  <td>PRQ-Net</td>
-                  <td>0.6282</td>
-                  <td>0.4299</td>
-                  <td>0.7416</td>
-                  <td>-0.0097</td>
+                  <td>RBF-SVM + patient-wise z-score</td><td>Feature</td>
+                  <td>0.5888 &plusmn; 0.0003</td><td>0.3958 &plusmn; 0.0010</td>
+                  <td>0.7819 &plusmn; 0.0012</td><td>0.7047 &plusmn; 0.0015</td>
+                  <td>0.6799 &plusmn; 0.0001</td><td>+0.0541</td>
+                </tr>
+
+                <tr class="group-row"><th colspan="8">Raw-iEEG neural baselines</th></tr>
+                <tr>
+                  <td>SEEGNet <span class="venue-tag">CBM '22</span></td><td>Raw iEEG</td>
+                  <td>0.4540 &plusmn; 0.0100</td><td>0.0630 &plusmn; 0.0180</td>
+                  <td>0.8440 &plusmn; 0.0050</td><td>0.7550 &plusmn; 0.0060</td>
+                  <td>0.6264 &plusmn; 0.0122</td><td>-0.2020</td>
                 </tr>
                 <tr>
-                  <td>BCR-Net</td>
-                  <td>0.6248</td>
-                  <td>0.4303</td>
-                  <td>0.7392</td>
-                  <td>+0.0040</td>
+                  <td>TimeConv-CNN <span class="venue-tag">arXiv '26</span></td><td>Raw iEEG</td>
+                  <td>0.4570 &plusmn; 0.0080</td><td>0.0610 &plusmn; 0.0140</td>
+                  <td><strong>0.8530 &plusmn; 0.0040</strong></td><td><strong>0.7660 &plusmn; 0.0040</strong></td>
+                  <td>0.5922 &plusmn; 0.0087</td><td>-0.2083</td>
+                </tr>
+                <tr>
+                  <td>CLAP <span class="venue-tag">ICASSP '23</span></td><td>Raw iEEG</td>
+                  <td>0.4310 &plusmn; 0.0140</td><td>0.0270 &plusmn; 0.0180</td>
+                  <td>0.8360 &plusmn; 0.0070</td><td>0.7500 &plusmn; 0.0080</td>
+                  <td>0.5051 &plusmn; 0.0150</td><td>-0.1995</td>
+                </tr>
+                <tr>
+                  <td>SEEGformer <span class="venue-tag">EBioMedicine '26</span></td><td>Raw iEEG</td>
+                  <td>0.4202 &plusmn; 0.0101</td><td>0.1187 &plusmn; 0.0176</td>
+                  <td>0.7216 &plusmn; 0.0110</td><td>0.7056 &plusmn; 0.0061</td>
+                  <td>0.6208 &plusmn; 0.0005</td><td>-0.0261</td>
+                </tr>
+
+                <tr class="group-row"><th colspan="8">EpiLENS</th></tr>
+                <tr>
+                  <td>PRQ-Net <span class="venue-tag">Ours</span></td><td>Feature</td>
+                  <td>0.6282 &plusmn; 0.0018</td><td>0.4299 &plusmn; 0.0035</td>
+                  <td>0.8265 &plusmn; 0.0001</td><td>0.7511 &plusmn; 0.0003</td>
+                  <td>0.7416 &plusmn; 0.0007</td><td>-0.0097</td>
+                </tr>
+                <tr>
+                  <td>BCR-Net <span class="venue-tag">Ours</span></td><td>Feature</td>
+                  <td>0.6248 &plusmn; 0.0024</td><td>0.4303 &plusmn; 0.0083</td>
+                  <td>0.8192 &plusmn; 0.0063</td><td>0.7443 &plusmn; 0.0042</td>
+                  <td>0.7392 &plusmn; 0.0034</td><td>+0.0040</td>
                 </tr>
                 <tr class="best-row">
-                  <td>CDEL (EpiLENS)</td>
-                  <td>0.6371</td>
-                  <td>0.4485</td>
-                  <td>0.7468</td>
-                  <td>+0.0034</td>
+                  <td>CDEL <span class="venue-tag">Ours</span></td><td>Feature</td>
+                  <td><strong>0.6371 &plusmn; 0.0072</strong></td><td><strong>0.4485 &plusmn; 0.0118</strong></td>
+                  <td>0.8256 &plusmn; 0.0030</td><td>0.7526 &plusmn; 0.0029</td>
+                  <td><strong>0.7468 &plusmn; 0.0004</strong></td><td><strong>+0.0034</strong></td>
                 </tr>
               </tbody>
             </table>
           </div>
+
+          <p class="table-caption">
+            Mean &plusmn; standard deviation over three seeds. Metrics are computed
+            independently for each patient and macro-averaged across 80 patients.
+            EZ-frac. bias is predicted minus observed EZ prevalence (0.2283), so
+            values closer to zero are better. Venue tags identify the originating
+            neural architecture or public baseline source; every result shown here
+            is produced under the matched EpiLENS evaluation protocol.
+          </p>
 
           <div class="evidence-grid">
             <article>
@@ -217,6 +340,71 @@
               </p>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="section analysis-section" id="analysis">
+        <div class="container content">
+          <h2>Why does the fusion help?</h2>
+          <p class="section-intro">
+            PRQ-Net supplies stable patient-relative probabilities, while BCR-Net
+            improves the ordering of difficult EZ candidates. The locked CDEL
+            operating point uses 20% BCR-Net evidence.
+          </p>
+
+          <figure class="analysis-figure">
+            <a href="assets/ab3.pdf" aria-label="Open fusion and permutation analysis as PDF">
+              <img
+                src="assets/ab3.png"
+                alt="Fusion weight sensitivity and within-patient permutation test for CDEL"
+              />
+            </a>
+            <figcaption>
+              Fusion sensitivity across three seeds and the null distribution from
+              1,000 within-patient BCR-Net permutations. Click to open the original PDF.
+            </figcaption>
+          </figure>
+
+          <div class="analysis-grid">
+            <article>
+              <strong>0.6282 &rarr; 0.5550</strong>
+              <h3>Patient-relative normalization</h3>
+              <p>Removing patient-relative construction causes the largest PRQ-Net Macro-F1 drop.</p>
+            </article>
+            <article>
+              <strong>0.5564 / 0.7859</strong>
+              <h3>Complementary EZ ranking</h3>
+              <p>BCR-Net achieves the strongest EZ-AUPRC / NDCG-EZ, improving difficult-candidate ordering.</p>
+            </article>
+            <article>
+              <strong>p = 0.001</strong>
+              <h3>Patient-specific complementarity</h3>
+              <p>The observed CDEL gain is not explained by generic score smoothing.</p>
+            </article>
+            <article>
+              <strong>+0.0219 to +0.0245</strong>
+              <h3>Hard boundary channels</h3>
+              <p>CDEL improves EZ-F1 on the hardest 10%, 20%, and 30% PRQ-defined channel subsets.</p>
+            </article>
+            <article>
+              <strong>0.6146 &rarr; 0.6395</strong>
+              <h3>Repeated seizure evidence</h3>
+              <p>CDEL improves from one to all seizures on the matched 73-patient cohort.</p>
+            </article>
+            <article>
+              <strong>0.6163 / 0.5773</strong>
+              <h3>Unseen-center transfer</h3>
+              <p>Center-mean / worst-center Macro-F1 across four leave-one-center-out evaluations.</p>
+            </article>
+          </div>
+
+          <p class="analysis-note">
+            Boundary-only BCR-Net is the strongest standalone BCR objective
+            (Macro-F1 0.6268). Coverage is retained as a prespecified complement
+            for recovering the annotated EZ set; no standalone benefit is claimed
+            for coverage. Patient-level bootstrap intervals for CDEL versus PRQ-Net
+            remain above zero for Macro-F1, EZ-F1, EZ-AUPRC, and NDCG-EZ.
+          </p>
         </div>
       </section>
 

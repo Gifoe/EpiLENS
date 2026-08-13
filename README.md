@@ -2,7 +2,7 @@
 
 Official implementation of **EpiLENS: Patient-Relative Epileptogenic Zone Localization from Multi-Center Intracranial EEG**.
 
-[Project page](https://gifoe.github.io/EpiLENS/) · [arXiv](https://arxiv.org/abs/2608.01076) · [PDF](https://arxiv.org/pdf/2608.01076)
+[Project page](https://gifoe.github.io/EpiLENS/) | [arXiv](https://arxiv.org/abs/2608.01076) | [PDF](https://arxiv.org/pdf/2608.01076)
 
 EpiLENS localizes epileptogenic-zone (EZ) contacts from heterogeneous multi-center intracranial EEG. It builds patient-relative evidence from repeated seizures and combines two independently trained branches:
 
@@ -12,16 +12,23 @@ EpiLENS localizes epileptogenic-zone (EZ) contacts from heterogeneous multi-cent
 
 ## Main result
 
-Metrics are patient-wise and then macro-averaged across 80 postoperative seizure-free patients. Values are mean ± standard deviation over three seeds.
+Metrics are patient-wise and then macro-averaged across 80 postoperative seizure-free patients. Values are mean +/- standard deviation over three seeds.
 
 | Method | Macro-F1 | EZ-F1 | AUROC | EZ-frac. bias |
 |---|---:|---:|---:|---:|
-| Logistic regression + patient-wise z-score | 0.6065 ± 0.0000 | 0.3988 ± 0.0000 | 0.6835 ± 0.0000 | -0.0138 |
-| PRQ-Net | 0.6282 ± 0.0018 | 0.4299 ± 0.0035 | 0.7416 ± 0.0007 | -0.0097 |
-| BCR-Net | 0.6248 ± 0.0024 | 0.4303 ± 0.0083 | 0.7392 ± 0.0034 | +0.0040 |
-| **CDEL** | **0.6371 ± 0.0072** | **0.4485 ± 0.0118** | **0.7468 ± 0.0004** | **+0.0034** |
+| Logistic regression + patient-wise z-score | 0.6065 +/- 0.0000 | 0.3988 +/- 0.0000 | 0.6835 +/- 0.0000 | -0.0138 |
+| PRQ-Net | 0.6282 +/- 0.0018 | 0.4299 +/- 0.0035 | 0.7416 +/- 0.0007 | -0.0097 |
+| BCR-Net | 0.6248 +/- 0.0024 | 0.4303 +/- 0.0083 | 0.7392 +/- 0.0034 | +0.0040 |
+| **CDEL** | **0.6371 +/- 0.0072** | **0.4485 +/- 0.0118** | **0.7468 +/- 0.0004** | **+0.0034** |
 
 The repository retains the strongest reported baseline only: logistic regression with label-free patient-wise feature z-scoring.
+
+## Project figures
+
+- [Framework overview (PDF)](docs/assets/aoa.pdf)
+- [Fusion sensitivity and within-patient permutation analysis (PDF)](docs/assets/ab3.pdf)
+
+Web-optimized previews are stored beside each PDF and displayed on the project page.
 
 ## Installation
 
