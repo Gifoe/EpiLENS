@@ -130,6 +130,19 @@ sup {
   background: var(--soft);
 }
 
+.section.method {
+  padding-top: 3.4rem;
+  background: #fbfbfb;
+}
+
+.section.code-section {
+  background: #ffffff;
+}
+
+.section.citation-section {
+  background: var(--soft);
+}
+
 .content h2 {
   margin: 0 0 1.45rem;
   font-size: clamp(1.75rem, 3vw, 2.2rem);
@@ -139,11 +152,50 @@ sup {
 }
 
 .abstract,
-.result-note {
+.result-note,
+.section-intro {
   max-width: 920px;
   margin: 0 auto;
   font-size: 1.02rem;
   text-align: justify;
+}
+
+.section-intro {
+  margin-bottom: 1.8rem;
+}
+
+.problem-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 960px;
+  margin: 2.2rem auto 0;
+  border-block: 1px solid var(--line);
+}
+
+.problem-strip div {
+  padding: 1.2rem 1.35rem;
+  border-right: 1px solid var(--line);
+}
+
+.problem-strip div:last-child {
+  border-right: 0;
+}
+
+.problem-strip strong,
+.problem-strip span {
+  display: block;
+}
+
+.problem-strip strong {
+  color: #253f70;
+  font-size: 0.96rem;
+}
+
+.problem-strip span {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 .method-figure {
@@ -168,6 +220,44 @@ sup {
   margin-top: 0.7rem;
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.method-steps,
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.3rem;
+}
+
+.method-steps article,
+.evidence-grid article {
+  padding: 1.35rem 1.45rem;
+  border-top: 3px solid #617d9b;
+  background: #ffffff;
+}
+
+.method-steps article > span {
+  color: #8a9caf;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+.method-steps h3,
+.evidence-grid h3,
+.split-content h3 {
+  margin: 0.25rem 0 0.5rem;
+  color: var(--ink);
+  font-size: 1.02rem;
+}
+
+.method-steps p,
+.evidence-grid p,
+.split-content p {
+  margin: 0;
+  color: #555555;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .metrics {
@@ -210,6 +300,97 @@ sup {
   color: #555555;
   font-size: 0.93rem;
   text-align: center;
+}
+
+.result-table-wrap {
+  overflow-x: auto;
+  max-width: 960px;
+  margin: 2rem auto 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.result-table th,
+.result-table td {
+  padding: 0.78rem 0.9rem;
+  border-bottom: 1px solid #e7e7e7;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.result-table th:first-child,
+.result-table td:first-child {
+  text-align: left;
+}
+
+.result-table thead {
+  color: #ffffff;
+  background: #43586f;
+}
+
+.result-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.result-table .best-row {
+  color: #173f68;
+  background: #e7f2fb;
+  font-weight: 700;
+}
+
+.evidence-grid {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.evidence-grid article {
+  border-top-color: #83a0bd;
+}
+
+.split-content {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.split-content h2 {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.split-content > div > p {
+  max-width: 680px;
+  font-size: 0.98rem;
+}
+
+.split-content aside {
+  padding: 1.3rem 1.45rem;
+  border-left: 3px solid #7f9bb8;
+  background: var(--soft);
+}
+
+.split-content aside h3 {
+  margin-top: 0;
+}
+
+.repository-link {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #333333;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .bibtex-wrap {
@@ -273,6 +454,30 @@ footer a {
 
   .abstract {
     text-align: left;
+  }
+
+  .section-intro {
+    text-align: left;
+  }
+
+  .problem-strip,
+  .method-steps,
+  .evidence-grid,
+  .split-content {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-strip div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .problem-strip div:last-child {
+    border-bottom: 0;
+  }
+
+  .split-content {
+    gap: 1.8rem;
   }
 
   .metrics {

@@ -62,17 +62,33 @@
         </div>
       </header>
 
-      <section class="section">
+      <section class="section" id="overview">
         <div class="container content">
-          <h2>Abstract</h2>
+          <h2>What problem does EpiLENS solve?</h2>
           <p class="abstract">
-            EpiLENS is a patient-relative framework for localizing the
-            epileptogenic zone from multi-center intracranial EEG. It combines
-            stable patient-relative probabilities from PRQ-Net with complementary
-            boundary-aware ranking evidence from BCR-Net through Conservative
-            Dual-Evidence Localization (CDEL). Evaluated on 80 patients from four
-            centers, EpiLENS reaches a patient Macro-F1 of 0.6371 while maintaining
-            near-zero EZ-fraction bias.
+            Epilepsy surgery depends on identifying the intracranial EEG channels
+            associated with the epileptogenic zone (EZ). This is difficult because
+            EZ channels are rare, recording conditions vary across centers, and
+            electrophysiological abnormalities are patient-specific rather than
+            globally comparable. EpiLENS therefore asks a patient-relative
+            question: <strong>which channels are abnormal compared with this
+            patient's own reference activity and other implanted channels?</strong>
+          </p>
+
+          <div class="problem-strip" aria-label="Study challenges">
+            <div><strong>Patient heterogeneity</strong><span>Each patient provides an internal electrophysiological reference.</span></div>
+            <div><strong>Severe imbalance</strong><span>Boundary-aware ranking focuses learning on difficult EZ/NEZ channels.</span></div>
+            <div><strong>Multi-center variation</strong><span>Fixed patient-wise evaluation prevents channel-level leakage.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section method" id="method">
+        <div class="container content">
+          <h2>Method</h2>
+          <p class="section-intro">
+            EpiLENS converts multi-seizure recordings into patient-relative
+            evidence and combines two independently trained, complementary views.
           </p>
 
           <figure class="method-figure">
@@ -83,30 +99,151 @@
               />
             </a>
             <figcaption>
-              EpiLENS overview. Click the figure to open the original PDF.
+              From multi-center SEEG/ECoG and patient-relative features to PRQ-Net,
+              BCR-Net, and conservative dual-evidence fusion. Click to open the
+              original PDF.
             </figcaption>
           </figure>
+
+          <div class="method-steps">
+            <article>
+              <span>01</span>
+              <h3>Patient-relative evidence</h3>
+              <p>
+                Absolute descriptors are paired with reference differences,
+                standardized deviations, and log-relative ratios across seizures.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Complementary branches</h3>
+              <p>
+                PRQ-Net models stable patient-relative probabilities; BCR-Net
+                emphasizes hard decision boundaries and patient-level coverage.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Conservative fusion</h3>
+              <p>
+                CDEL keeps PRQ-Net primary and applies the locked rule
+                0.8 PRQ-Net + 0.2 BCR-Net, without patient-specific tuning.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section class="section results">
+      <section class="section results" id="results">
         <div class="container content">
-          <h2>Results</h2>
+          <h2>Evaluation and results</h2>
+          <p class="section-intro">
+            We use fixed patient-wise five-fold outer splits over 80 postoperative
+            seizure-free patients from four centers, totaling 256 seizures and
+            7,635 implanted channels. Metrics are computed per patient and then
+            macro-averaged; Macro-F1 is the primary endpoint.
+          </p>
           <div class="metrics" aria-label="Key results">
             <div><strong>0.6371</strong><span>Macro-F1</span></div>
             <div><strong>0.4485</strong><span>EZ-F1</span></div>
             <div><strong>0.7468</strong><span>AUROC</span></div>
             <div><strong>+0.0034</strong><span>EZ-fraction bias</span></div>
           </div>
-          <p class="result-note">
-            Patient-wise five-fold evaluation across 256 seizures and 7,635
-            implanted channels. The strongest retained baseline is logistic
-            regression with patient-wise z-score normalization (Macro-F1 0.6065).
-          </p>
+          <div class="result-table-wrap">
+            <table class="result-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Macro-F1</th>
+                  <th>EZ-F1</th>
+                  <th>AUROC</th>
+                  <th>EZ-frac. bias</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Logistic + patient-wise z-score</td>
+                  <td>0.6065</td>
+                  <td>0.3988</td>
+                  <td>0.6835</td>
+                  <td>-0.0138</td>
+                </tr>
+                <tr>
+                  <td>PRQ-Net</td>
+                  <td>0.6282</td>
+                  <td>0.4299</td>
+                  <td>0.7416</td>
+                  <td>-0.0097</td>
+                </tr>
+                <tr>
+                  <td>BCR-Net</td>
+                  <td>0.6248</td>
+                  <td>0.4303</td>
+                  <td>0.7392</td>
+                  <td>+0.0040</td>
+                </tr>
+                <tr class="best-row">
+                  <td>CDEL (EpiLENS)</td>
+                  <td>0.6371</td>
+                  <td>0.4485</td>
+                  <td>0.7468</td>
+                  <td>+0.0034</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="evidence-grid">
+            <article>
+              <h3>Better localization</h3>
+              <p>
+                CDEL improves Macro-F1 by 0.0306 over the strongest retained
+                baseline while keeping predicted EZ prevalence close to the
+                clinical annotation.
+              </p>
+            </article>
+            <article>
+              <h3>Evidence beyond smoothing</h3>
+              <p>
+                Within-patient permutation testing rejects generic score smoothing
+                as the explanation for the fusion gain (p = 0.001).
+              </p>
+            </article>
+            <article>
+              <h3>Cross-center robustness</h3>
+              <p>
+                Leave-one-center-out evaluation reaches 0.6163 center-mean
+                Macro-F1, with 0.5773 on the most difficult held-out center.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section class="section" id="citation">
+      <section class="section code-section" id="code">
+        <div class="container content split-content">
+          <div>
+            <h2>Code and reproducibility</h2>
+            <p>
+              The repository includes PRQ-Net, BCR-Net, locked CDEL evaluation,
+              component and sensitivity analyses, cross-seizure evaluation,
+              leave-one-center-out evaluation, and the strongest reported baseline:
+              logistic regression with label-free patient-wise z-scoring.
+            </p>
+            <a class="repository-link" href="https://github.com/Gifoe/EpiLENS">View code repository</a>
+          </div>
+          <aside>
+            <h3>Clinical data</h3>
+            <p>
+              Raw recordings, patient identifiers, and confidential annotations
+              are not distributed. The code provides an anonymized patient-record
+              contract and validates fixed patient-wise partitions before training.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section citation-section" id="citation">
         <div class="container content">
           <h2>Citation</h2>
           <div class="bibtex-wrap">
