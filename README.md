@@ -25,10 +25,27 @@ The repository retains the strongest reported baseline only: logistic regression
 
 ## Project figures
 
-- [Framework overview (PDF)](docs/assets/aoa.pdf)
-- [Fusion sensitivity and within-patient permutation analysis (PDF)](docs/assets/ab3.pdf)
+### Framework overview
 
-Web-optimized previews are stored beside each PDF and displayed on the project page.
+![EpiLENS framework overview](docs/assets/aoa.png)
+
+[Download the original framework PDF](docs/assets/aoa.pdf)
+
+### Fusion sensitivity and permutation analysis
+
+![Fusion sensitivity and within-patient permutation analysis](docs/assets/ab3.png)
+
+[Download the original analysis PDF](docs/assets/ab3.pdf)
+
+The previews above render directly on the GitHub code page; the PDF links retain
+the original vector-quality figures.
+
+## Transfer to a conventional model
+
+Patient-wise z-score normalization is a label-free EpiLENS module rather than a
+model-specific trick. Adding it to ordinary logistic regression raises Macro-F1
+from **0.4910 to 0.6065**, EZ-F1 from **0.2740 to 0.3988**, and AUROC from
+**0.5930 to 0.6835** under the same patient-wise evaluation protocol.
 
 ## Installation
 

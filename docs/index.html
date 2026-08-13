@@ -244,7 +244,7 @@
                   <td>0.8060 &plusmn; 0.0133</td><td>0.7136 &plusmn; 0.0157</td>
                   <td>0.6380 &plusmn; 0.0079</td><td>-0.0298</td>
                 </tr>
-                <tr>
+                <tr class="module-transfer-row">
                   <td>Logistic + patient-wise z-score</td>
                   <td>Feature</td>
                   <td>0.6065 &plusmn; 0.0000</td><td>0.3988 &plusmn; 0.0000</td>
@@ -266,7 +266,7 @@
                   <td>0.6264 &plusmn; 0.0122</td><td>-0.2020</td>
                 </tr>
                 <tr>
-                  <td>TimeConv-CNN <span class="venue-tag">arXiv '26</span></td><td>Raw iEEG</td>
+                  <td>TimeConv-CNN <span class="venue-tag">ICLR '26</span></td><td>Raw iEEG</td>
                   <td>0.4570 &plusmn; 0.0080</td><td>0.0610 &plusmn; 0.0140</td>
                   <td><strong>0.8530 &plusmn; 0.0040</strong></td><td><strong>0.7660 &plusmn; 0.0040</strong></td>
                   <td>0.5922 &plusmn; 0.0087</td><td>-0.2083</td>
@@ -315,6 +315,20 @@
             neural architecture or public baseline source; every result shown here
             is produced under the matched EpiLENS evaluation protocol.
           </p>
+
+          <div class="transfer-callout">
+            <span class="callout-label">Module transfer</span>
+            <p>
+              The framed row shows that the patient-wise z-score module is not
+              limited to EpiLENS. Adding the same label-free patient-relative
+              normalization to ordinary logistic regression raises Macro-F1 from
+              <strong>0.4910 to 0.6065</strong>, EZ-F1 from
+              <strong>0.2740 to 0.3988</strong>, and AUROC from
+              <strong>0.5930 to 0.6835</strong>. This isolates a general benefit:
+              conventional models also improve when channels are interpreted
+              relative to their own patient.
+            </p>
+          </div>
 
           <div class="evidence-grid">
             <article>
