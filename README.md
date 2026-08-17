@@ -31,12 +31,6 @@ The repository retains the strongest reported baseline only: logistic regression
 
 [Download the original framework PDF](docs/assets/aoa.pdf)
 
-### Fusion sensitivity and permutation analysis
-
-![Fusion sensitivity and within-patient permutation analysis](docs/assets/ab3.png)
-
-[Download the original analysis PDF](docs/assets/ab3.pdf)
-
 The previews above render directly on the GitHub code page; the PDF links retain
 the original vector-quality figures.
 
